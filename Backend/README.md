@@ -1,3 +1,17 @@
+
+# 📌 User Authentication API Documentation
+
+This backend provides endpoints to register and log in users with proper validation, password encryption, and JWT token-based authentication.
+
+---
+
+## 📂 Endpoints Covered
+
+- [POST /users/register](#-user-registration-endpoint-documentation)
+- [POST /users/login](#-user-login-endpoint-documentation)
+
+---
+
 # 📌 User Registration Endpoint Documentation
 
 ## 🔗 Endpoint
@@ -100,6 +114,107 @@ Occurs when validation fails or required fields are missing.
 Content-Type: application/json
 ```
 
+---
+
+
+# 📌 User Login Endpoint Documentation
+
+## 🔗 Endpoint
+
+```
+POST /users/login
+```
+
+---
+
+## 📝 Description
+
+This endpoint is used to **log in an existing user**. It validates the user's credentials and returns a **JWT token** on successful authentication.
+
+---
+
+## 📥 Request Body Format (JSON)
+
+```json
+{
+  "email": "john.doe@example.com",
+  "password": "securePassword123"
+}
+```
+
+### ✅ Field Requirements
+
+| Field    | Type   | Required | Validation                 |
+| -------- | ------ | -------- | -------------------------- |
+| email    | String | ✅ Yes   | Must be a valid email      |
+| password | String | ✅ Yes   | Minimum 6 characters       |
+
+---
+
+## ✅ Success Response
+
+**Status Code:** `200 OK`
+
+**Response Body:**
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "_id": "608b91d0f3a5d72a78c8f3a1",
+    "fullname": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.doe@example.com",
+    "socketId": null
+  }
+}
+```
+
+---
+
+## ❌ Error Responses
+
+### 🔸 400 Bad Request
+
+Occurs when input validation fails.
+
+```json
+{
+  "errors": [
+    {
+      "msg": "Invalid Email",
+      "param": "email",
+      "location": "body"
+    }
+  ]
+}
+```
+
+### 🔸 401 Unauthorized
+
+Occurs when email is not found or password is incorrect.
+
+```json
+{
+  "message": "Invalid email or password"
+}
+```
+
+---
+
+## 📦 Notes
+
+- Make sure the user is already registered before login.
+- Passwords are securely compared using `bcrypt.compare()`.
+- JWT tokens are signed using a secret key from environment variables.
+- Use the token for authenticated requests.
+- Ensure headers contain:
+
+```http
+Content-Type: application/json
+```
 ---
 
 👨‍💻 **Author:** Sudhanshu Ghosh  
