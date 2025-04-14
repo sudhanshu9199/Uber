@@ -9,6 +9,8 @@ This backend provides endpoints to register and log in users with proper validat
 
 - [POST /users/register](#-user-registration-endpoint-documentation)
 - [POST /users/login](#-user-login-endpoint-documentation)
+- [GET /users/profile](#-user-profile-endpoint-documentation)
+- [GET /users/logout](#-user-logout-endpoint-documentation)
 
 ---
 
@@ -215,6 +217,110 @@ Occurs when email is not found or password is incorrect.
 ```http
 Content-Type: application/json
 ```
+---
+
+# 📌 User Profile Endpoint Documentation
+
+## 🔗 Endpoint
+
+```
+GET /users/login
+```
+
+## 📝 Description
+
+This endpoint is used to **fetch the profile of the logged-in user**. The user's details are returned when the JWT token is provided in the request.
+
+## ✅ Success Response
+**Status Code:** `200 OK`
+
+**Response Body:**
+
+```json
+{
+  "_id": "608b91d0f3a5d72a78c8f3a1",
+  "fullname": {
+    "firstname": "John",
+    "lastname": "Doe"
+  },
+  "email": "john.doe@example.com",
+  "socketId": null
+}
+```
+---
+
+## ❌ Error Responses
+
+### 🔸 401 Unauthorized
+
+Occurs when the JWT token is invalid or missing.
+
+```json
+{
+  "message": "Unauthorized access. Please log in."
+}
+```
+---
+
+## 📦 Notes
+
+- Make sure the user is logged in and has a valid JWT token.
+- The token must be included in the `Authorization` header as a Bearer token:
+
+```http
+Authorization: Bearer <token>
+```
+---
+
+# 📌 User Logout Endpoint Documentation
+
+## 🔗 Endpoint
+
+```
+GET /users/logout
+```
+
+## 📝 Description
+
+This endpoint is used to **log out the user**. It invalidates the current session by clearing the JWT token stored in the cookies and adding it to the blacklist to prevent further use.
+
+---
+
+## ✅ Success Response
+**Status Code:** `200 OK`
+
+**Response Body:**
+
+```json
+{
+  "message": "LOGGED OUT."
+}
+```
+
+---
+
+## ❌ Error Responses
+
+### 🔸 401 Unauthorized
+
+Occurs when the JWT token is invalid or missing.
+
+```json
+{
+  "message": "Unauthorized access. Please log in."
+}
+```
+---
+
+## 📦 Notes
+
+- This will clear the user's JWT token from cookies and add it to the blacklist to prevent unauthorized access.
+- Ensure that the request includes a valid JWT token in the `Authorization` header:
+
+```http
+Authorization: Bearer <token>
+```
+
 ---
 
 👨‍💻 **Author:** Sudhanshu Ghosh  
