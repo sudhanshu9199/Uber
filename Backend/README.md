@@ -323,5 +323,136 @@ Authorization: Bearer <token>
 
 ---
 
+# 📌 Captain Registration Endpoint Documentation
+
+## 🔗 Endpoint
+
+```
+POST /captain/register
+```
+
+---
+
+## 📝 Description
+
+This endpoint is used to **register a new captain** along with their **vehicle details**. It performs necessary validations, hashes the password, and saves both user and vehicle data securely in the database.
+
+---
+
+## 📥 Request Body Format (JSON)
+
+```json
+{
+  "fullname": {
+    "firstname": "Ravi",
+    "lastname": "Kumar"
+  },
+  "email": "ravi.kumar@example.com",
+  "password": "DriveSafe2024",
+  "vehicle": {
+    "color": "White",
+    "plate": "BR01AB1234",
+    "capacity": 4,
+    "vehicleType": "car"
+  }
+}
+```
+
+---
+
+### ✅ Field Requirements
+
+Field | Type | Required | Validation Criteria
+| -------- | ------ | -------- | -------------------------- |
+fullname.firstname | String | ✅ Yes | Minimum 3 characters
+fullname.lastname | String | ❌ No | Minimum 3 characters (if provided)
+email | String | ✅ Yes | Must be a valid email format
+password | String | ✅ Yes | Minimum 6 characters
+vehicle.color | String | ✅ Yes | Minimum 3 characters
+vehicle.plate | String | ✅ Yes | Minimum 3 characters
+vehicle.capacity | Integer | ✅ Yes | Must be a positive integer (at least 1)
+vehicle.vehicleType | String | ✅ Yes | Must be one of: car, motorcycle, auto
+
+---
+
+## ✅ Success Response
+**Status Code:** `201 Created`
+
+**Response Body:**
+
+```json
+{
+  "message": "Captain registered successfully",
+  "captain": {
+    "_id": "661b12345f3a4d0012e6a789",
+    "fullname": {
+      "firstname": "Ravi",
+      "lastname": "Kumar"
+    },
+    "email": "ravi.kumar@example.com",
+    "vehicle": {
+      "color": "White",
+      "plate": "BR01AB1234",
+      "capacity": 4,
+      "vehicleType": "car"
+    }
+  }
+}
+```
+
+---
+
+## ❌ Error Responses
+
+### 🔸 400 Bad Request
+
+Occurs when input validation fails.
+
+```json
+{
+  "errors": [
+    {
+      "msg": "Vehicle type must be one of: car, motorcycle, auto",
+      "param": "vehicle.vehicleType",
+      "location": "body"
+    }
+  ]
+}
+```
+
+---
+
+### 🔸 500 Internal Server Error
+
+Occurs when some unexpected issue happens on the server, like database failure.
+
+```json
+{
+  "message": "Internal server error"
+}
+```
+
+---
+
+## 📦 Notes
+
+- Password is hashed using `bcrypt` before storing.
+- The response may also include a JWT token if authentication is implemented (currently not returned by default in your controller).
+- Vehicle details are saved as a sub-document inside the captain's record.
+- Required headers:
+
+```http
+Content-Type: application/json
+```
+
+---
+
+🧑‍✈️ **Module**: captain.routes.js
+🔧 **Service Used**: captain.service.js
+🧾 **Model**: captain.model.js
+📁 **File Location**: backend/routes/captain.routes.js
+
+---
+
 👨‍💻 **Author:** Sudhanshu Ghosh  
 📁 **File Location:** `backend/README.md`
