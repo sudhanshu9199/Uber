@@ -12,7 +12,253 @@ This backend provides endpoints to register and log in users with proper validat
 - [GET /users/profile](#-user-profile-endpoint-documentation)
 - [GET /users/logout](#-user-logout-endpoint-documentation)
 
+### Captains
+- [POST /captain/register](#-captain-registration-endpoint-documentation)
+- [POST /captain/login](#-captain-login-endpoint-documentation)
+- [GET /captain/profile](#-captain-profile-endpoint-documentation)
+- [GET /captain/logout](#-captain-logout-endpoint-documentation)
+
 ---
+
+# 📌 Captain Registration Endpoint Documentation
+
+## 🔗 Endpoint
+
+```
+POST /captain/register
+```
+
+---
+
+## 📝 Description
+
+Register a new captain with vehicle details. Validates inputs, hashes password, and saves to database.
+
+---
+
+## 📥 Request Body Format (JSON)
+
+```json
+{
+  "fullname": {
+    "firstname": "Ravi",   // Required, minimum 3 characters
+    "lastname": "Kumar"    // Optional, minimum 3 characters if provided
+  },
+  "email": "ravi.kumar@example.com",  // Required, valid email format
+  "password": "DriveSafe2024",        // Required, minimum 6 characters
+  "vehicle": {
+    "color": "White",     // Required, minimum 3 characters
+    "plate": "BR01AB1234",// Required, minimum 3 characters
+    "capacity": 4,        // Required, integer ≥ 1
+    "vehicleType": "car"  // Required: "car", "motorcycle", or "auto"
+  }
+}
+```
+
+### ✅ Success Response
+
+**Status Code:** `201 Created`
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "captain": {
+    "_id": "661b12345f3a4d0012e6a789",
+    "fullname": {
+      "firstname": "Ravi",
+      "lastname": "Kumar"
+    },
+    "email": "ravi.kumar@example.com",
+    "vehicle": {
+      "color": "White",
+      "plate": "BR01AB1234",
+      "capacity": 4,
+      "vehicleType": "car"
+    }
+  }
+}
+```
+
+## ❌ Error Responses
+
+### 🔸 400 Bad Request
+
+```json
+{
+  "errors": [
+    {
+      "msg": "Vehicle type must be one of: car, motorcycle, auto",
+      "param": "vehicle.vehicleType",
+      "location": "body"
+    }
+  ]
+}
+```
+
+### 🔸 409 Conflict
+
+```json
+{
+  "message": "Captain already exist"
+}
+```
+
+---
+
+# 📌 Captain Login Endpoint Documentation
+
+## 🔗 Endpoint
+
+```
+POST /captain/login
+```
+
+---
+
+## 📝 Description
+
+Authenticate captain credentials and return JWT token.
+
+## 📥 Request Body Format (JSON)
+
+```json
+{
+  "email": "ravi.kumar@example.com",  // Required, valid email
+  "password": "DriveSafe2024"         // Required, minimum 6 characters
+}
+```
+
+### ✅ Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "message": "Login successful",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "captain": {
+    "_id": "661b12345f3a4d0012e6a789",
+    "fullname": {
+      "firstname": "Ravi",
+      "lastname": "Kumar"
+    },
+    "email": "ravi.kumar@example.com",
+    "vehicle": {
+      "color": "White",
+      "plate": "BR01AB1234",
+      "capacity": 4,
+      "vehicleType": "car"
+    }
+  }
+}
+```
+
+---
+
+## ❌ Error Responses
+
+### 🔸 401 Unauthorized
+
+```json
+{
+  "message": "Invalid email or password"
+}
+```
+
+---
+
+# 📌 Captain Profile Endpoint Documentation
+
+## 🔗 Endpoint
+
+```
+POST /captain/profile
+```
+
+---
+
+## 📝 Description
+
+Get authenticated captain's profile details.
+
+---
+
+## 🔑 Authentication
+Requires valid JWT token in Authorization header:
+
+```http
+Content-Type: application/json
+```
+---
+
+## ✅ Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "captain": {
+    "_id": "661b12345f3a4d0012e6a789",
+    "fullname": {
+      "firstname": "Ravi",
+      "lastname": "Kumar"
+    },
+    "email": "ravi.kumar@example.com",
+    "vehicle": {
+      "color": "White",
+      "plate": "BR01AB1234",
+      "capacity": 4,
+      "vehicleType": "car"
+    }
+  }
+}
+```
+
+---
+
+# 📌 Captain Logout Endpoint Documentation
+
+## 🔗 Endpoint
+
+```
+POST /captain/logout
+```
+
+---
+
+## 📝 Description
+
+Invalidate JWT token and clear authentication cookie.
+
+---
+
+## ✅ Success Response
+
+**Status Code:** `200 OK`
+
+```json
+{
+  "message": "Logout successfully"
+}
+```
+
+---
+
+## 📦 Notes for All Captain Endpoints
+
+- Password hashing: `bcrypt`.
+- Token storage: HTTP-only cookies
+- Vehicle details: Stored as sub-document
+- Required headers:
+
+```http
+Content-Type: application/json
+Authorization: Bearer <token>  // For protected endpoints
+```
+
+---
+
+
 
 # 📌 User Registration Endpoint Documentation
 
