@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import uberLogo from "../assets/Uber-black-Logo.png";
 import UserSignupBg from "../assets/User-signup-bg.png";
+import axios from "axios";
+import { UserDataContext } from "../context/UserContext";
 
+// bg-gradient-to-r from-white via-[#7A7879] to-white bg-clip-text text-transparent
 
 const UserSignup = () => {
   const [email, setEmail] = useState("");
@@ -11,16 +14,29 @@ const UserSignup = () => {
   const [lastname, setLastname] = useState("");
   const [userData, setUserData] = useState({});
 
-  const submitHandler = (e) => {
+  const navigate = useNavigate();
+
+  const{ user, setUser } = React.useContext(UserDataContext)
+
+  const submitHandler = async (e) => {
     e.preventDefault();
-    setUserData({
-      fullName: {
-        firstName: firstname,
-        lastName: lastname
+    const newUser = {
+      fullname: {
+        firstname: firstname,
+        lastname: lastname
       },
       email: email,
       password: password,
-    });
+    }
+
+    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, newUser);
+
+    if(response.status === 201) {
+      const data = response.data
+      setUser(data.user)
+      localStorage.setItem('token', data.token);
+      navigate('/home');
+    }
 
     console.log(userData);
     setEmail("");
@@ -90,11 +106,11 @@ const UserSignup = () => {
             }}
           />
           <button className=" bg-black hover:bg-gray-800 transition-all duration-200 text-white font-semibold mt-7 rounded px-4 py-2 border-none w-full flex items-center justify-center text-2xl ">
-            register
+            Create account
           </button>
           <p className="text-amber-300">
             Already have an account?{" "}
-            <Link to="/login" className="inline-block bg-gradient-to-r from-white via-[#7A7879] to-white bg-clip-text text-transparent">
+            <Link to="/login" className="inline-block text-white">
               Login here
             </Link>
           </p>
