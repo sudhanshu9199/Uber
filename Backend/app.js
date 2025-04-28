@@ -7,6 +7,7 @@ const connectDB = require('./db/db'); // use connectDB to connect to the databas
 const userRoutes = require('./routes/user.routes');
 const captainRoutes = require('./routes/captain.routes');
 const mapsRoutes = require('./routes/maps.routes');
+const rideRoutes = require('./routes/ride.routes'); // use rideRoutes to handle ride-related routes
 
 connectDB();
 const app = express(); // use express to create an app
@@ -23,6 +24,7 @@ app.get('/', (req, res) => {
 app.use('/users', userRoutes);
 app.use('/captains', captainRoutes);
 app.use('/maps', mapsRoutes);
+app.use('/rides', rideRoutes); // use rideRoutes to handle ride-related routes
 
 
 module.exports = app; // use module.exports to export the app

@@ -45,8 +45,8 @@ module.exports.getDistanceAndTime = async (origin, destination) => {
       if (element.status === 'OK') {
         const { distance, duration } = element;
         return {
-          distance: distance.text,
-          duration: duration.text
+          distance: distance.value,
+          duration: duration.value
         };
       } else {
         throw new Error('No route found between origin and destination.');
