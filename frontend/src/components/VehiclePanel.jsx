@@ -12,7 +12,7 @@ const VehiclePanel = (props) => {
     <div>
       <h5
         onClick={() => {
-          
+          props.setVehiclePanel(false);
         }}
         className="absolute top-1 right-2 text-xl font-bold"
       >

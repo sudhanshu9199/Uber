@@ -8,7 +8,7 @@ import {
 } from "react-icons/md";
 import { IoShareOutline } from "react-icons/io5";
 
-import carImage from "../assets/ev img.png";
+import pulcerGirlDriver from "../assets/Drivers/pulcer_bike_driver_girl_3.png";
 import bikeImage from "../assets/bike_with_helmet img2.png";
 
 // --- Reusable Action Button Component ---
@@ -70,7 +70,7 @@ const WaitingForDriver = (props) => {
         {/* Driver Picture & Car Image Stack - Achieved with positioning */}
         <div className="w-[150px] h-[70px] relative flex items-center justify-center mr-2">
           <img
-            src={carImage}
+            src={pulcerGirlDriver}
             className="w-[70px] h-[70px] rounded-full absolute left-0 z-10 object-cover"
             alt="Driver"
           />

@@ -79,7 +79,6 @@ const Home = () => {
     if(confirmRidePanel){
       gsap.to(confirmedRidePanelRef.current, {
         transform: 'translateY(0%)',
-        // hidden: false,
         duration: 0.6,
         ease: "power2.inOut",
       })
@@ -87,7 +86,6 @@ const Home = () => {
     else{
       gsap.to(confirmedRidePanelRef.current, {
         transform: 'translateY(100%)',
-        // hidden: true,
         duration: 0.5,
         ease: "power2.inOut",
       })
@@ -98,7 +96,6 @@ const Home = () => {
     if(vehicleFound){
       gsap.to(vehicleFoundRef.current, {
         transform: 'translateY(0%)',
-        // hidden: false,
         duration: 0.6,
         ease: "power2.inOut",
       })
@@ -106,31 +103,28 @@ const Home = () => {
     else{
       gsap.to(vehicleFoundRef.current, {
         transform: 'translateY(100%)',
-        // hidden: true,
         duration: 0.5,
         ease: "power2.inOut",
       })
     }
   }, [vehicleFound])
 
-  // useGSAP(()=> {
-  //   if(waitingForDriver){
-  //     gsap.to(WaitingForDriverRef.current, {
-  //       transform: 'translateY(0%)',
-  //       // hidden: false,
-  //       duration: 0.6,
-  //       ease: "power2.inOut",
-  //     })
-  //   }
-  //   else{
-  //     gsap.to(WaitingForDriverRef.current, {
-  //       transform: 'translateY(100%)',
-  //       // hidden: true,
-  //       duration: 0.5,
-  //       ease: "power2.inOut",
-  //     })
-  //   }
-  // }, [waitingForDriver])
+  useGSAP(()=> {
+    if(waitingForDriver){
+      gsap.to(WaitingForDriverRef.current, {
+        transform: 'translateY(0%)',
+        duration: 0.6,
+        ease: "power2.inOut",
+      })
+    }
+    else{
+      gsap.to(WaitingForDriverRef.current, {
+        transform: 'translateY(100%)',
+        duration: 0.5,
+        ease: "power2.inOut",
+      })
+    }
+  }, [waitingForDriver])
 
   return (
     <div className="h-screen relative overflow-hidden">
@@ -190,7 +184,7 @@ const Home = () => {
       <div ref={vehicleFoundRef} className="fixed w-full bottom-0 z-10 px-2 py-6 bg-white translate-y-full">
               <LookingForDriver setVehicleFound={setVehicleFound}/>
       </div>
-      <div ref={WaitingForDriverRef} className="fixed w-full bottom-0 z-11 px-2 py-6 bg-white">
+      <div ref={WaitingForDriverRef} className="fixed w-full bottom-0 z-11 px-2 py-6 bg-white  translate-y-full">
               <WaitingForDriver waitingForDriver={waitingForDriver}/>
       </div>
     </div>

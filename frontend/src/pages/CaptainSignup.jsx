@@ -116,7 +116,7 @@ const CaptainSignup = () => {
               setEmail(e.target.value);
             }}
           />
-          <h3 className="inline-block text-base font-semibold bg-[linear-gradient(76deg,rgba(0,0,0,1)_10%,rgba(255,255,255,1)_49%,rgba(0,0,0,1)_92%)] text-transparent bg-clip-text mb-1">
+          <h3 className="inline-block text-base font-semibold bg-[linear-gradient(76deg,rgba(0,0,0,1)_40%,rgba(255,255,255,1)_49%,rgba(0,0,0,1)_92%)] text-transparent bg-clip-text mb-1">
             Enter Password
           </h3>
           <input
@@ -130,12 +130,12 @@ const CaptainSignup = () => {
               setPassword(e.target.value);
             }}
           />
-          <h3 className="inline-block text-base font-semibold bg-[linear-gradient(76deg,rgba(0,0,0,1)_5%,rgba(255,255,255,1)_40%)] text-transparent bg-clip-text mb-1">
+          <h3 className="inline-block text-base font-semibold bg-[linear-gradient(76deg,rgba(0,0,0,1)_42%,rgba(255,255,255,1)_40%)] text-transparent bg-clip-text mb-1">
             Vehicle Type
           </h3>
           <select
   required
-  className="w-full bg-white/90 rounded-md px-3 py-2 text-sm"
+  className="w-1/2 ml-5 bg-white/90 rounded-md px-3 py-2 text-sm"
   value={vehicleType}
   onChange={(e) => setVehicleType(e.target.value)}
 >
@@ -150,14 +150,14 @@ const CaptainSignup = () => {
   <option value="Bike">Bike</option>
   <option value="Electric">Electric</option>
 </select>
-          <h3 className="inline-block text-base font-semibold bg-[linear-gradient(76deg,rgba(0,0,0,1)_75%,rgba(255,255,255,1)_92%)] text-transparent bg-clip-text mb-1">
+          <h3 className="inline-block text-base font-semibold bg-black text-transparent bg-clip-text mb-1">
             Vehicle Color
           </h3>
           <input
             type="text"
             required
             placeholder="e.g. White, Black"
-            className="w-full bg-white/90 rounded-md px-3 py-2 text-sm"
+            className="w-1/2 ml-5 bg-white/90 rounded-md px-3 py-2 text-sm"
             value={vehicleColor}
             onChange={(e) => setVehicleColor(e.target.value)}
           />
@@ -166,12 +166,12 @@ const CaptainSignup = () => {
             type="text"
             required
             placeholder="e.g. BR01AB1234"
-            className="w-full bg-white/90 rounded-md px-3 py-2 text-sm"
+            className="w-1/2 bg-white/90 rounded-md px-3 py-2 text-sm"
             value={vehiclePlate}
             onChange={(e) => setVehiclePlate(e.target.value)}
           />
           <div>
-          <h3 className="inline-block text-base font-semibold bg-[linear-gradient(76deg,rgba(0,0,0,1)_62%,rgba(255,255,255,1)_81%,rgba(0,0,0,1)_90%)] text-transparent bg-clip-text mb-1">Vehicle Capacity</h3>
+          <h3 className="inline-block text-base font-semibold bg-black text-transparent bg-clip-text mb-1">Vehicle Capacity</h3>
           <input
             type="number"
             required
